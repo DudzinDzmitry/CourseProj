@@ -3,8 +3,9 @@ module github.com/DudzinDzmitry/CourseProj
 go 1.19
 
 require (
+	github.com/AHacTacIA/KP v0.0.0-20221206223102-54a209a7a1ed
 	github.com/caarlos0/env/v6 v6.10.1
-	github.com/google/uuid v1.1.2
+	github.com/google/uuid v1.3.0
 	github.com/jackc/pgx/v4 v4.17.2
 	github.com/labstack/gommon v0.4.0
 	google.golang.org/grpc v1.51.0

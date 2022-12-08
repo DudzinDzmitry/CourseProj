@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  OrderDB:
+    container_name: OrderDB
+    image: postgres:15.1
+    environment:
+      - POSTGRES_DB=Order
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=order
+    ports:
+      - "5436:5432"
+
+  web:
+    container_name: UserService
+    build:
+      context: .
+    ports:
+      - "50051:50051"
+    environment:
+      - POSTGRES_DB_URL=postgres://postgres:Order@OrderDB:5436/user?sslmode=disable
+    depends_on:
+      - OrderDB

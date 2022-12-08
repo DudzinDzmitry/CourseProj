@@ -16,44 +16,17 @@ type PRepository struct {
 }
 
 func (p *PRepository) CreateAccount(ctx context.Context, newAccountPtr *user.AccountIfo) error {
-	//TODO implement me
-	panic("implement me")
+	newID := uuid.New().String()
+	_, err := p.Pool.Exec(ctx, "insert into persons(id,name,position,password) values($1,$2,$3,$4)",
+		newID, &newAccountPtr.UserName, &newAccountPtr.Password)
+	if err != nil {
+		log.Errorf("database error with create user: %v", err)
+		return err
+	}
+	return nil
 }
 
 func (p *PRepository) DeleteAccount(ctx context.Context, id string) error {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (p *PRepository) LogIn(ctx context.Context, id string, password string) error {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (p *PRepository) LogOut(ctx context.Context, id string) error {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (p *PRepository) UpdateAccount(ctx context.Context, newAccountPtr *user.AccountIfo) error {
-	//TODO implement me
-	panic("implement me")
-}
-
-// CreateUser add user to db
-func (p *PRepository) CreateUser(ctx context.Context, person *user.AccountIfo) (string, error) {
-	newID := uuid.New().String()
-	_, err := p.Pool.Exec(ctx, "insert into persons(id,name,position,password) values($1,$2,$3,$4)",
-		newID, &person.UserName, &person.Password)
-	if err != nil {
-		log.Errorf("database error with create user: %v", err)
-		return "", err
-	}
-	return newID, nil
-}
-
-// DeleteUser delete user by id
-func (p *PRepository) DeleteUser(ctx context.Context, id string) error {
 	a, err := p.Pool.Exec(ctx, "delete from persons where id=$1", id)
 	if a.RowsAffected() == 0 {
 		return fmt.Errorf("user with this id doesnt exist")
@@ -68,9 +41,8 @@ func (p *PRepository) DeleteUser(ctx context.Context, id string) error {
 	return nil
 }
 
-// UpdateUser update parameters for user
-func (p *PRepository) UpdateUser(ctx context.Context, id string, per *user.AccountIfo) error {
-	a, err := p.Pool.Exec(ctx, "update persons set name=$1,position=$2 where id=$3", &per.UserName, id)
+func (p *PRepository) LogIn(ctx context.Context, id string, password string) error {
+	a, err := p.Pool.Exec(ctx, "update persons set refreshToken=$1 where id=$2", id)
 	if a.RowsAffected() == 0 {
 		return fmt.Errorf("user with this id doesnt exist")
 	}
@@ -81,9 +53,13 @@ func (p *PRepository) UpdateUser(ctx context.Context, id string, per *user.Accou
 	return nil
 }
 
-// UpdateAuth logout, delete refresh token
-func (p *PRepository) UpdateAuth(ctx context.Context, id, refreshToken string) error {
-	a, err := p.Pool.Exec(ctx, "update persons set refreshToken=$1 where id=$2", refreshToken, id)
+func (p *PRepository) LogOut(ctx context.Context, id string) error {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (p *PRepository) UpdateAccount(ctx context.Context, newAccountPtr *user.AccountIfo) error {
+	a, err := p.Pool.Exec(ctx, "update persons set name=$1,position=$2 where id=$3", &newAccountPtr.UserName)
 	if a.RowsAffected() == 0 {
 		return fmt.Errorf("user with this id doesnt exist")
 	}

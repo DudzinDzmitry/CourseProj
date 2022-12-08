@@ -6,7 +6,7 @@ services:
     environment:
       - POSTGRES_DB=Auth
       - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
+      - POSTGRES_PASSWORD=auth
     ports:
       - "5432:5432"
 
@@ -17,6 +17,6 @@ services:
     ports:
       - "50052:50051"
     environment:
-      - POSTGRES_DB_URL=postgres://postgres:user@postgres:5436/user?sslmode=disable
+      - POSTGRES_DB_URL=postgres://postgres:Auth@AuthDB:5432/user?sslmode=disable
     depends_on:
       - AuthDB
