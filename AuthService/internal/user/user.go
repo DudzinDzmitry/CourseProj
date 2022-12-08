@@ -1,7 +1,7 @@
 package user
 
-// Person : struct for user
-type Person struct {
+// User : struct for user
+type User struct {
 	ID           string `bson,json:"id"`
 	Name         string `bson,json:"name"`
 	Position     string `bson,json:"position"`
@@ -9,7 +9,6 @@ type Person struct {
 	RefreshToken string `bson,json:"refreshToken"`
 }
 
-// Config struct create config
 type Config struct {
 	CurrentDB     string `env:"CURRENT_DB" envDefault:"postgres"`
 	PostgresDBURL string `env:"POSTGRES_DB_URL" envDefault:"postgres://postgres:user@localhost:5436/user?sslmode=disable"`

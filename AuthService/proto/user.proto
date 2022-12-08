@@ -4,8 +4,6 @@ option go_package = ".";
 
 service CRUD{
   rpc Registration(RegistrationRequest)returns(RegistrationResponse){};
-  rpc GetUser(GetUserRequest)returns(GetUserResponse){};
-  rpc GetAllUsers(GetAllUsersRequest)returns(GetAllUsersResponse);
   rpc DeleteUser(DeleteUserRequest)returns(Response);
   rpc UpdateUser(UpdateUserRequest)returns(Response);
   rpc Authentication(AuthenticationRequest)returns(AuthenticationResponse);
