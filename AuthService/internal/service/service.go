@@ -12,7 +12,7 @@ type Service struct {
 	repo   repository.Repo
 }
 
-func NewServiceConnect(pool repository.Repo, jwtKey []byte) *Service {
+func NewServiceConnect(pool *repository.PRepository, jwtKey []byte) *Service {
 	return &Service{repo: pool, jwtKey: jwtKey}
 }
 
@@ -32,6 +32,6 @@ func (se *Service) LogOut(ctx context.Context, id, password string) error {
 	return se.repo.LogOut(ctx, id)
 }
 
-func (se *Service) UpdateAccount(ctx context.Context, id string, user *user.AccountIfo) error {
-	return se.repo.UpdateAccount(ctx, id, user)
+func (se *Service) UpdateAccount(ctx context.Context, user *user.AccountIfo) error {
+	return se.repo.UpdateAccount(ctx, user)
 }

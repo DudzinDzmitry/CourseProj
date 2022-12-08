@@ -10,5 +10,5 @@ type Repo interface {
 	DeleteAccount(ctx context.Context, id string) error
 	LogIn(ctx context.Context, id string, password string) error
 	LogOut(ctx context.Context, id string) error
-	UpdateAccount(ctx context.Context, id string, p *user.AccountIfo) error
+	UpdateAccount(ctx context.Context, newAccountPtr *user.AccountIfo) error
 }

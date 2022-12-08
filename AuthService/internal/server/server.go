@@ -9,6 +9,7 @@ import (
 
 type Server struct {
 	currentService *service.Service
+	pb.UnimplementedCRUDServer
 }
 
 func NewServerConnect(server *service.Service) *Server {
@@ -16,7 +17,11 @@ func NewServerConnect(server *service.Service) *Server {
 }
 
 func (s *Server) CreateAccount(ctx context.Context, request *pb.CreateAccountRequest) (*pb.CreateAccountResponse, error) {
-	err := s.currentService.CreateAccount(ctx, new(user.AccountIfo))
+	newAcc := new(user.AccountIfo)
+	newAcc.ID = request.Id
+	newAcc.UserName = request.UserName
+	newAcc.Password = request.Password
+	err := s.currentService.CreateAccount(ctx, newAcc)
 	if err != nil {
 		return nil, err
 	}
@@ -48,14 +53,11 @@ func (s *Server) LogOut(ctx context.Context, request *pb.DeleteAccountRequest) (
 }
 
 func (s *Server) UpdateAccount(ctx context.Context, request *pb.UpdateAccountRequest) (*pb.UpdateAccountResponse, error) {
-	if err := s.currentService.UpdateAccount(ctx); err != nil {
-		return nil, err
-	}
-	newInfo := &user.AccountIfo{
-		UserName: request.UserName,
-	}
-	err := s.currentService.UpdateAccount(ctx, request.Id, newInfo)
-	if err != nil {
+	newAcc := new(user.AccountIfo)
+	newAcc.ID = request.Id
+	newAcc.UserName = request.UserName
+	newAcc.Password = request.Password
+	if err := s.currentService.UpdateAccount(ctx, newAcc); err != nil {
 		return nil, err
 	}
 	return new(pb.UpdateAccountResponse), nil

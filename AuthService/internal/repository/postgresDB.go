@@ -15,11 +15,36 @@ type PRepository struct {
 	Pool *pgxpool.Pool
 }
 
+func (p *PRepository) CreateAccount(ctx context.Context, newAccountPtr *user.AccountIfo) error {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (p *PRepository) DeleteAccount(ctx context.Context, id string) error {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (p *PRepository) LogIn(ctx context.Context, id string, password string) error {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (p *PRepository) LogOut(ctx context.Context, id string) error {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (p *PRepository) UpdateAccount(ctx context.Context, newAccountPtr *user.AccountIfo) error {
+	//TODO implement me
+	panic("implement me")
+}
+
 // CreateUser add user to db
-func (p *PRepository) CreateUser(ctx context.Context, person *user.Person) (string, error) {
+func (p *PRepository) CreateUser(ctx context.Context, person *user.AccountIfo) (string, error) {
 	newID := uuid.New().String()
 	_, err := p.Pool.Exec(ctx, "insert into persons(id,name,position,password) values($1,$2,$3,$4)",
-		newID, &person.Name, &person.Position, &person.Password)
+		newID, &person.UserName, &person.Password)
 	if err != nil {
 		log.Errorf("database error with create user: %v", err)
 		return "", err
@@ -44,8 +69,8 @@ func (p *PRepository) DeleteUser(ctx context.Context, id string) error {
 }
 
 // UpdateUser update parameters for user
-func (p *PRepository) UpdateUser(ctx context.Context, id string, per *user.Person) error {
-	a, err := p.Pool.Exec(ctx, "update persons set name=$1,position=$2 where id=$3", &per.Name, &per.Position, id)
+func (p *PRepository) UpdateUser(ctx context.Context, id string, per *user.AccountIfo) error {
+	a, err := p.Pool.Exec(ctx, "update persons set name=$1,position=$2 where id=$3", &per.UserName, id)
 	if a.RowsAffected() == 0 {
 		return fmt.Errorf("user with this id doesnt exist")
 	}

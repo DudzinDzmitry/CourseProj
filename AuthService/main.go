@@ -42,7 +42,7 @@ func main() {
 }
 
 // DBConnection create connection with db
-func DBConnection(cfg *user.Config) repository.Repo {
+func DBConnection(cfg *user.Config) *repository.PRepository {
 
 	log.Info(cfg.PostgresDBURL)
 	poolP, err := pgxpool.Connect(context.Background(), cfg.PostgresDBURL) // "postgresql://postgres:123@localhost:5432/person"
