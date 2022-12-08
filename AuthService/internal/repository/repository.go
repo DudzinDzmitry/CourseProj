@@ -6,7 +6,9 @@ import (
 )
 
 type Repo interface {
-	CreateUser(ctx context.Context, p *user.User) error
-	UpdateUser(ctx context.Context, id string, p *user.User) error
-	DeleteUser(ctx context.Context, id string) error
+	CreateAccount(ctx context.Context, newAccountPtr *user.AccountIfo) error
+	DeleteAccount(ctx context.Context, id string) error
+	LogIn(ctx context.Context, id string, password string) error
+	LogOut(ctx context.Context, id string) error
+	UpdateAccount(ctx context.Context, id string, p *user.AccountIfo) error
 }

@@ -16,17 +16,22 @@ func NewServiceConnect(pool repository.Repo, jwtKey []byte) *Service {
 	return &Service{repo: pool, jwtKey: jwtKey}
 }
 
-// CreateUser _
-func (se *Service) CreateUser(ctx context.Context, user *user.User) error {
-	return se.repo.CreateUser(ctx, user)
+func (se *Service) CreateAccount(ctx context.Context, newAccountPtr *user.AccountIfo) error {
+	return se.repo.CreateAccount(ctx, newAccountPtr)
 }
 
-// UpdateUser _
-func (se *Service) UpdateUser(ctx context.Context, id string, user *user.User) error {
-	return se.repo.UpdateUser(ctx, id, user)
+func (se *Service) DeleteAccount(ctx context.Context, id string) error {
+	return se.repo.DeleteAccount(ctx, id)
 }
 
-// DeleteUser _
-func (se *Service) DeleteUser(ctx context.Context, id string) error {
-	return se.repo.DeleteUser(ctx, id)
+func (se *Service) LogIn(ctx context.Context, id, password string) error {
+	return se.repo.LogIn(ctx, id, password)
+}
+
+func (se *Service) LogOut(ctx context.Context, id, password string) error {
+	return se.repo.LogOut(ctx, id)
+}
+
+func (se *Service) UpdateAccount(ctx context.Context, id string, user *user.AccountIfo) error {
+	return se.repo.UpdateAccount(ctx, id, user)
 }

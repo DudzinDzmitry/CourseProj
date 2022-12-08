@@ -1,12 +1,10 @@
 package user
 
-// User : struct for user
-type User struct {
-	ID           string `bson,json:"id"`
-	Name         string `bson,json:"name"`
-	Position     string `bson,json:"position"`
-	Password     string `bson,json:"password"`
-	RefreshToken string `bson,json:"refreshToken"`
+// AccountIfo : struct for user
+type AccountIfo struct {
+	ID       string `bson,json:"id"`
+	UserName string `bson,json:"userName"`
+	Password string `bson,json:"password"`
 }
 
 type Config struct {

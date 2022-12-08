@@ -3,82 +3,69 @@ option go_package = ".";
 
 
 service CRUD{
-  rpc Registration(RegistrationRequest)returns(RegistrationResponse){};
-  rpc DeleteUser(DeleteUserRequest)returns(Response);
-  rpc UpdateUser(UpdateUserRequest)returns(Response);
-  rpc Authentication(AuthenticationRequest)returns(AuthenticationResponse);
-  rpc RefreshMyTokens(RefreshTokensRequest)returns(RefreshTokensResponse);
-  rpc Logout(LogoutRequest)returns(Response);
+  rpc CreateAccount(CreateAccountRequest)returns(CreateAccountResponse){};
+  rpc DeleteAccount(DeleteAccountRequest)returns(DeleteAccountResponse);
+  rpc LogIn(LogInRequest)returns(LogInResponse){};
+  rpc LogOut(LogOutRequest)returns(LogOutResponse);
+  rpc UpdateAccount(UpdateAccountRequest)returns(UpdateAccountResponse);
+
 }
 
-
-message GetAllUsersRequest{}
-
-message LogoutRequest{
-  string accessToken=1;
-  string id=2;
-}
-
-message UpdateUserRequest{
-  string accessToken = 1;
-  Person person = 2;
-  string id = 3;
-}
-
-message RegistrationRequest{
-  string name = 2;
-  string position = 3;
-  string password = 4;
-}
-
-
-
-message AuthenticationRequest{
+message CreateAccountRequest{
   string id = 1;
-  string password = 2;
-
+  string userName = 2;
+  string password = 3;
 }
 
-message RefreshTokensRequest{
-  string refreshToken = 1;
-}
-message RefreshTokensResponse{
-  string refreshToken = 1;
-  string accessToken = 2;
-}
-
-message GetUserRequest{
-  string accessToken = 1;
-  string id = 2;
-}
-
-message DeleteUserRequest{
-  string accessToken = 1;
-  string id = 2;
-}
-
-message GetUserResponse{
-  Person person = 1;
-}
-
-message RegistrationResponse{
+message CreateAccountResponse{
   string id = 1;
+  string userName = 2;
+  string password = 3;
 }
 
-message GetAllUsersResponse{
-  repeated Person persons = 1;
-}
-
-message AuthenticationResponse{
-  string accessToken = 1;
-  string refreshToken = 2;
-}
-
-message Response{}
-
-message Person{
+message DeleteAccountRequest{
   string id = 1;
-  string name = 2;
-  string position = 3;
-  string password = 4;
+  string userName = 2;
+  string password = 3;
+}
+
+message DeleteAccountResponse{
+  string id = 1;
+  string userName = 2;
+  string password = 3;
+}
+message LogInRequest{
+  string id = 1;
+  string userName = 2;
+  string password = 3;
+}
+
+message LogInResponse{
+  string id = 1;
+  string userName = 2;
+  string password = 3;
+}
+
+message LogOutRequest{
+  string id = 1;
+  string userName = 2;
+  string password = 3;
+}
+
+message LogOutResponse{
+  string id = 1;
+  string userName = 2;
+  string password = 3;
+}
+
+message UpdateAccountRequest{
+  string id = 1;
+  string userName = 2;
+  string password = 3;
+}
+
+message UpdateAccountResponse{
+  string id = 1;
+  string userName = 2;
+  string password = 3;
 }
