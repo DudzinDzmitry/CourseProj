@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  AuthDB:
+    container_name: AuthDB
+    image: postgres:15.1
+    environment:
+      - POSTGRES_DB=Auth
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - "5432:5432"
+
+  web:
+    container_name: UserService
+    build:
+      context: .
+    ports:
+      - "50052:50051"
+    environment:
+      - POSTGRES_DB_URL=postgres://postgres:user@postgres:5436/user?sslmode=disable
+    depends_on:
+      - AuthDB
